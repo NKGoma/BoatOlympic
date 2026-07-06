@@ -1,10 +1,43 @@
 document.addEventListener("DOMContentLoaded", () => {
+  let announcerVoice = null;
+  function pickAnnouncerVoice() {
+    if (!("speechSynthesis" in window)) return null;
+    const voices = window.speechSynthesis.getVoices();
+    if (!voices.length) return null;
+    const preferredNames = [
+      "Google UK English Male",
+      "Microsoft Guy Online (Natural) - English (United States)",
+      "Microsoft Ryan Online (Natural) - English (United Kingdom)",
+      "Microsoft David - English (United States)",
+      "Google US English",
+      "Daniel",
+      "Alex",
+      "Fred",
+    ];
+    for (const name of preferredNames) {
+      const match = voices.find((v) => v.name === name);
+      if (match) return match;
+    }
+    return (
+      voices.find((v) => v.lang?.startsWith("en") && v.localService) ||
+      voices.find((v) => v.lang?.startsWith("en")) ||
+      voices[0]
+    );
+  }
+  if ("speechSynthesis" in window) {
+    announcerVoice = pickAnnouncerVoice();
+    window.speechSynthesis.onvoiceschanged = () => {
+      announcerVoice = pickAnnouncerVoice();
+    };
+  }
+
   function speak(text, opts = {}) {
     if (!("speechSynthesis" in window)) return;
     const utter = new SpeechSynthesisUtterance(text);
-    utter.rate = opts.rate ?? 0.95;
-    utter.pitch = opts.pitch ?? 0.85;
+    utter.rate = opts.rate ?? 0.88;
+    utter.pitch = opts.pitch ?? 0.7;
     utter.volume = opts.volume ?? 1;
+    if (announcerVoice) utter.voice = announcerVoice;
     window.speechSynthesis.speak(utter);
   }
 
@@ -21,14 +54,11 @@ document.addEventListener("DOMContentLoaded", () => {
   function welcomeAnnouncement() {
     if (hasWelcomed) return;
     hasWelcomed = true;
-    announceNow("Welcooooome, to the Boat Olympics!");
+    announceNow("Welcooooome... to the Boat Olympics!");
   }
   ["pointerdown", "keydown", "scroll"].forEach((evt) =>
     document.addEventListener(evt, welcomeAnnouncement, { once: true, passive: true })
   );
-
-  const gameNumbers = new Map();
-  document.querySelectorAll(".game-card[data-event]").forEach((card, i) => gameNumbers.set(card, i + 1));
 
   const revealTargets = document.querySelectorAll(".game-card, .timeline-item, .fleet-card");
   const observer = new IntersectionObserver((entries) => {
@@ -36,14 +66,27 @@ document.addEventListener("DOMContentLoaded", () => {
       if (entry.isIntersecting) {
         entry.target.classList.add("is-visible");
         observer.unobserve(entry.target);
-        if (gameNumbers.has(entry.target)) {
-          const title = entry.target.querySelector("h3").textContent;
-          announce(`Game ${gameNumbers.get(entry.target)}: ${title}`);
-        }
       }
     });
   }, { threshold: 0.15 });
   revealTargets.forEach((el) => observer.observe(el));
+
+  document.querySelectorAll(".game-card[data-event]").forEach((card, i) => {
+    const gameNum = i + 1;
+    const title = card.querySelector("h3").textContent;
+    let lastAnnounced = 0;
+    function announceGame() {
+      const now = Date.now();
+      if (now - lastAnnounced < 500) return;
+      lastAnnounced = now;
+      announceNow(`Gaaaaame ${gameNum}! ${title}!`);
+    }
+    card.addEventListener("mouseenter", announceGame);
+    card.addEventListener("click", (e) => {
+      if (e.target.closest(".vote-btn")) return;
+      announceGame();
+    });
+  });
 
   const audio = document.getElementById("bgAudio");
   const toggle = document.getElementById("audioToggle");
@@ -249,7 +292,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (cupDone && justChanged && !cupCelebrated) {
       cupCelebrated = true;
       playFanfare();
-      announceNow(`${port > starboard ? "Port" : "Starboard"} wins, the Boat Olympics!`);
+      announceNow(`${port > starboard ? "Port" : "Starboard"}... wiiiins, the Boat Olympics!`);
     } else if (!cupDone) {
       cupCelebrated = false;
     }
@@ -279,7 +322,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
           scores[event] = boat;
           playPointSound(boat);
-          announceNow(`Point, ${boat === "port" ? "Port" : "Starboard"}!`);
+          announceNow(`Poooooint, ${boat === "port" ? "Port" : "Starboard"}!`);
         }
         saveScores();
         render(true);
