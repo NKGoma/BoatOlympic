@@ -34,27 +34,27 @@ document.addEventListener("DOMContentLoaded", () => {
   function speak(text, opts = {}) {
     if (!("speechSynthesis" in window)) return;
     const utter = new SpeechSynthesisUtterance(text);
-    utter.rate = opts.rate ?? 0.88;
-    utter.pitch = opts.pitch ?? 0.7;
+    utter.rate = opts.rate ?? 1.08;
+    utter.pitch = opts.pitch ?? 1.2;
     utter.volume = opts.volume ?? 1;
     if (announcerVoice) utter.voice = announcerVoice;
     window.speechSynthesis.speak(utter);
   }
 
-  function announce(text) {
-    speak(text);
+  function announce(text, opts) {
+    speak(text, opts);
   }
 
-  function announceNow(text) {
+  function announceNow(text, opts) {
     if ("speechSynthesis" in window) window.speechSynthesis.cancel();
-    speak(text);
+    speak(text, opts);
   }
 
   let hasWelcomed = false;
   function welcomeAnnouncement() {
     if (hasWelcomed) return;
     hasWelcomed = true;
-    announceNow("Welcooooome... to the Boat Olympics!");
+    announceNow("Welcooooome... to the Boat Olympics!", { pitch: 1.25, rate: 1.05 });
   }
   ["pointerdown", "keydown", "scroll"].forEach((evt) =>
     document.addEventListener(evt, welcomeAnnouncement, { once: true, passive: true })
@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const now = Date.now();
       if (now - lastAnnounced < 500) return;
       lastAnnounced = now;
-      announceNow(`Gaaaaame ${gameNum}! ${title}!`);
+      announceNow(`Game ${gameNum}! ${title}!`, { pitch: 1.25, rate: 1.1 });
     }
     card.addEventListener("mouseenter", announceGame);
     card.addEventListener("click", (e) => {
@@ -292,7 +292,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (cupDone && justChanged && !cupCelebrated) {
       cupCelebrated = true;
       playFanfare();
-      announceNow(`${port > starboard ? "Port" : "Starboard"}... wiiiins, the Boat Olympics!`);
+      announceNow(`${port > starboard ? "Port" : "Starboard"}... wiiiins, the Boat Olympics!`, { pitch: 1.3, rate: 1.12 });
     } else if (!cupDone) {
       cupCelebrated = false;
     }
@@ -322,7 +322,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
           scores[event] = boat;
           playPointSound(boat);
-          announceNow(`Poooooint, ${boat === "port" ? "Port" : "Starboard"}!`);
+          announceNow(`Poooooint, ${boat === "port" ? "Port" : "Starboard"}!`, { pitch: 1.28, rate: 1.15 });
         }
         saveScores();
         render(true);
