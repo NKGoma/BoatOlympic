@@ -53,6 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
   navBurger.addEventListener("click", () => {
     const isOpen = navLinks.classList.toggle("open");
     navBurger.setAttribute("aria-expanded", String(isOpen));
+    playMenuClick();
   });
 
   navLinks.querySelectorAll("a").forEach((link) => {
@@ -61,6 +62,54 @@ document.addEventListener("DOMContentLoaded", () => {
       navBurger.setAttribute("aria-expanded", "false");
     });
   });
+
+  let audioCtx;
+  function getAudioCtx() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === "suspended") audioCtx.resume();
+    return audioCtx;
+  }
+
+  function tone(ctx, freq, startTime, duration, type, peakGain) {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = type;
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0.0001, startTime);
+    gain.gain.linearRampToValueAtTime(peakGain, startTime + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+    osc.connect(gain).connect(ctx.destination);
+    osc.start(startTime);
+    osc.stop(startTime + duration + 0.05);
+  }
+
+  function playPointSound(boat) {
+    const ctx = getAudioCtx();
+    const now = ctx.currentTime;
+    const base = boat === "port" ? 523.25 : 659.25;
+    tone(ctx, base, now, 0.16, "triangle", 0.22);
+    tone(ctx, base * 1.5, now + 0.08, 0.2, "triangle", 0.18);
+  }
+
+  function playUndoSound() {
+    const ctx = getAudioCtx();
+    const now = ctx.currentTime;
+    tone(ctx, 440, now, 0.12, "sine", 0.15);
+    tone(ctx, 300, now + 0.07, 0.16, "sine", 0.12);
+  }
+
+  function playFanfare() {
+    const ctx = getAudioCtx();
+    const now = ctx.currentTime;
+    const notes = [523.25, 659.25, 783.99, 1046.5];
+    notes.forEach((freq, i) => tone(ctx, freq, now + i * 0.16, 0.35, "sawtooth", 0.2));
+    tone(ctx, 1046.5, now + notes.length * 0.16, 0.7, "sawtooth", 0.22);
+  }
+
+  function playMenuClick() {
+    const ctx = getAudioCtx();
+    tone(ctx, 660, ctx.currentTime, 0.08, "sine", 0.12);
+  }
 
   const STORAGE_KEY = "boatOlympicScores";
   const cards = document.querySelectorAll(".game-card[data-event]");
@@ -107,6 +156,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  let cupCelebrated = false;
+
   function render(justChanged) {
     let port = 0;
     let starboard = 0;
@@ -148,14 +199,23 @@ document.addEventListener("DOMContentLoaded", () => {
       (port > starboard ? medalStarboard : medalPort).textContent = "🥈";
     }
 
+    const cupDone = decided === totalEvents && port !== starboard;
+
     if (decided === 0) {
       scoreBanner.textContent = BANNERS.tiePlaying;
-    } else if (decided === totalEvents && port !== starboard) {
+    } else if (cupDone) {
       scoreBanner.textContent = BANNERS.done(port > starboard ? "Port" : "Starboard");
     } else if (port === starboard) {
       scoreBanner.textContent = BANNERS.tieDecided(decided);
     } else {
       scoreBanner.textContent = BANNERS.lead(port > starboard ? "Port" : "Starboard", Math.abs(port - starboard));
+    }
+
+    if (cupDone && justChanged && !cupCelebrated) {
+      cupCelebrated = true;
+      playFanfare();
+    } else if (!cupDone) {
+      cupCelebrated = false;
     }
 
     if (justChanged) {
@@ -176,8 +236,14 @@ document.addEventListener("DOMContentLoaded", () => {
     card.querySelectorAll(".vote-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
         const boat = btn.dataset.boat;
-        scores[event] = scores[event] === boat ? undefined : boat;
-        if (scores[event] === undefined) delete scores[event];
+        const wasSet = scores[event] === boat;
+        if (wasSet) {
+          delete scores[event];
+          playUndoSound();
+        } else {
+          scores[event] = boat;
+          playPointSound(boat);
+        }
         saveScores();
         render(true);
       });
