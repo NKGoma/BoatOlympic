@@ -14,6 +14,7 @@
 <nav class="nav" id="nav">
   <a href="#top" class="nav-logo">BOAT<span>OLYMPIC</span></a>
   <div class="nav-links" id="navLinks">
+    <a href="#scoreboard">Score</a>
     <a href="#games">Games</a>
     <a href="#schedule">Schedule</a>
     <a href="#fleet">Fleet</a>
@@ -54,6 +55,38 @@
 
 <main>
 
+<section class="section scoreboard" id="scoreboard">
+  <div class="section-head">
+    <p class="eyebrow">Live Cup</p>
+    <h2>The Scoreboard</h2>
+    <p class="section-sub">Tap a boat on any event card to log the win. It updates right here, instantly.</p>
+  </div>
+
+  <div class="score-panel">
+    <p class="score-banner" id="scoreBanner">All square. Let's sail.</p>
+    <div class="score-row">
+      <div class="score-team score-team-port">
+        <p class="score-team-name">Port</p>
+        <p class="score-num" id="scorePort">0</p>
+      </div>
+      <div class="score-mid">
+        <div class="score-bar">
+          <div class="score-bar-fill score-bar-port" id="scoreBarPort"></div>
+          <div class="score-bar-fill score-bar-starboard" id="scoreBarStarboard"></div>
+        </div>
+        <p class="score-tally" id="scoreTally">0 of 13 events decided</p>
+      </div>
+      <div class="score-team score-team-starboard">
+        <p class="score-team-name">Starboard</p>
+        <p class="score-num" id="scoreStarboard">0</p>
+      </div>
+    </div>
+    <div class="confetti-field" id="confettiField"></div>
+  </div>
+
+  <button class="score-reset" id="scoreReset" type="button">Reset the Cup</button>
+</section>
+
 <section class="section" id="games">
   <div class="section-head">
     <p class="eyebrow">The Events</p>
@@ -63,95 +96,160 @@
 
   <div class="games-grid">
 
-    <article class="game-card" data-tag="Water">
+    <article class="game-card" data-tag="Water" data-event="duckie-relay">
       <p class="game-tag">Water</p>
       <h3>Duckie Relay</h3>
       <p class="game-line">Swimming relay, duckie in hand</p>
       <p class="game-desc">A relay swim with one non-negotiable rule: the rubber duck never touches water. Drop it, redo the lap.</p>
+      <p class="game-winner" hidden></p>
+      <div class="game-vote">
+        <button class="vote-btn vote-port" data-boat="port">Port</button>
+        <button class="vote-btn vote-starboard" data-boat="starboard">Starboard</button>
+      </div>
     </article>
 
-    <article class="game-card" data-tag="Ropes">
+    <article class="game-card" data-tag="Ropes" data-event="buoy-knot">
       <p class="game-tag">Ropes</p>
       <h3>Buoy Knotting Sprint</h3>
       <p class="game-line">Fastest to knot all the buoys</p>
       <p class="game-desc">A line of buoys, one clock. First crew to knot every single one wins — sloppy knots don't count.</p>
+      <p class="game-winner" hidden></p>
+      <div class="game-vote">
+        <button class="vote-btn vote-port" data-boat="port">Port</button>
+        <button class="vote-btn vote-starboard" data-boat="starboard">Starboard</button>
+      </div>
     </article>
 
-    <article class="game-card" data-tag="Water">
+    <article class="game-card" data-tag="Water" data-event="ring-dive">
       <p class="game-tag">Water</p>
       <h3>Ring Dive</h3>
       <p class="game-line">Jump through rings</p>
       <p class="game-desc">Timed obstacle jumps through a line of floating rings. Precision beats speed.</p>
+      <p class="game-winner" hidden></p>
+      <div class="game-vote">
+        <button class="vote-btn vote-port" data-boat="port">Port</button>
+        <button class="vote-btn vote-starboard" data-boat="starboard">Starboard</button>
+      </div>
     </article>
 
-    <article class="game-card" data-tag="Stage">
+    <article class="game-card" data-tag="Stage" data-event="guess-song">
       <p class="game-tag">Stage</p>
       <h3>Guess the Song</h3>
       <p class="game-line">Noran sings</p>
       <p class="game-desc">One microphone, one merciless judge, endless off-key nostalgia. Name the tune before the chorus.</p>
+      <p class="game-winner" hidden></p>
+      <div class="game-vote">
+        <button class="vote-btn vote-port" data-boat="port">Port</button>
+        <button class="vote-btn vote-starboard" data-boat="starboard">Starboard</button>
+      </div>
     </article>
 
-    <article class="game-card" data-tag="Social">
+    <article class="game-card" data-tag="Social" data-event="paloma-sprint">
       <p class="game-tag">Social</p>
       <h3>The Paloma Sprint</h3>
       <p class="game-line">Drink cocktail challenge — fastest one down</p>
       <p class="game-desc">Fastest crew member to finish a Paloma, properly. Pun fully intended, dignity optional.</p>
+      <p class="game-winner" hidden></p>
+      <div class="game-vote">
+        <button class="vote-btn vote-port" data-boat="port">Port</button>
+        <button class="vote-btn vote-starboard" data-boat="starboard">Starboard</button>
+      </div>
     </article>
 
-    <article class="game-card" data-tag="Water">
+    <article class="game-card" data-tag="Water" data-event="captain-overboard">
       <p class="game-tag">Water</p>
       <h3>Captain Overboard</h3>
       <p class="game-line">Drop your captains, fastest team to collect</p>
       <p class="game-desc">Captains go in first. Crew retrieves them fastest wins. Loyalty, tested in real time.</p>
+      <p class="game-winner" hidden></p>
+      <div class="game-vote">
+        <button class="vote-btn vote-port" data-boat="port">Port</button>
+        <button class="vote-btn vote-starboard" data-boat="starboard">Starboard</button>
+      </div>
     </article>
 
-    <article class="game-card" data-tag="Ropes">
+    <article class="game-card" data-tag="Ropes" data-event="knot-challenge">
       <p class="game-tag">Ropes</p>
       <h3>The Knot Challenge</h3>
       <p class="game-line">Tie it right, tie it fast</p>
       <p class="game-desc">Bowline, clove hitch, figure-eight — the classics, against the clock and each other.</p>
+      <p class="game-winner" hidden></p>
+      <div class="game-vote">
+        <button class="vote-btn vote-port" data-boat="port">Port</button>
+        <button class="vote-btn vote-starboard" data-boat="starboard">Starboard</button>
+      </div>
     </article>
 
-    <article class="game-card" data-tag="Water">
+    <article class="game-card" data-tag="Water" data-event="water-ballet">
       <p class="game-tag">Water</p>
       <h3>Water Ballet Lift</h3>
       <p class="game-line">Lift a teammate</p>
       <p class="game-desc">Synchronized swimming's finest move, performed by amateurs in open water. Style points included.</p>
+      <p class="game-winner" hidden></p>
+      <div class="game-vote">
+        <button class="vote-btn vote-port" data-boat="port">Port</button>
+        <button class="vote-btn vote-starboard" data-boat="starboard">Starboard</button>
+      </div>
     </article>
 
-    <article class="game-card" data-tag="Water">
+    <article class="game-card" data-tag="Water" data-event="sup-circuit">
       <p class="game-tag">Water</p>
       <h3>SUP Circuit</h3>
       <p class="game-line">SUP race around the boat</p>
       <p class="game-desc">Paddle-board sprint, full loop around the mothership. Fall in, start over.</p>
+      <p class="game-winner" hidden></p>
+      <div class="game-vote">
+        <button class="vote-btn vote-port" data-boat="port">Port</button>
+        <button class="vote-btn vote-starboard" data-boat="starboard">Starboard</button>
+      </div>
     </article>
 
-    <article class="game-card" data-tag="Water">
+    <article class="game-card" data-tag="Water" data-event="sup-haul">
       <p class="game-tag">Water</p>
       <h3>SUP Buoy Haul</h3>
       <p class="game-line">Full team, one board, five minutes</p>
       <p class="game-desc">The entire crew on one SUP. Five minutes to untie and haul in as many buoys as possible — without anyone falling in.</p>
+      <p class="game-winner" hidden></p>
+      <div class="game-vote">
+        <button class="vote-btn vote-port" data-boat="port">Port</button>
+        <button class="vote-btn vote-starboard" data-boat="starboard">Starboard</button>
+      </div>
     </article>
 
-    <article class="game-card" data-tag="Stage">
+    <article class="game-card" data-tag="Stage" data-event="make-a-song">
       <p class="game-tag">Stage</p>
       <h3>Make a Song</h3>
       <p class="game-line">Instruments — whatever's on board</p>
       <p class="game-desc">Whatever's on the boat is an instrument now. Compose, perform, own it.</p>
+      <p class="game-winner" hidden></p>
+      <div class="game-vote">
+        <button class="vote-btn vote-port" data-boat="port">Port</button>
+        <button class="vote-btn vote-starboard" data-boat="starboard">Starboard</button>
+      </div>
     </article>
 
-    <article class="game-card" data-tag="Stage">
+    <article class="game-card" data-tag="Stage" data-event="dance-off">
       <p class="game-tag">Stage</p>
       <h3>Choreography Face-off</h3>
       <p class="game-line">Dancing competition</p>
       <p class="game-desc">Full routine, full commitment. Judged on nerve as much as rhythm.</p>
+      <p class="game-winner" hidden></p>
+      <div class="game-vote">
+        <button class="vote-btn vote-port" data-boat="port">Port</button>
+        <button class="vote-btn vote-starboard" data-boat="starboard">Starboard</button>
+      </div>
     </article>
 
-    <article class="game-card" data-tag="Stage">
+    <article class="game-card" data-tag="Stage" data-event="sailing-stories">
       <p class="game-tag">Stage</p>
       <h3>Sailing Stories</h3>
       <p class="game-line">Told as theatre</p>
       <p class="game-desc">A real (or generously embellished) sailing story, staged as a five-minute performance.</p>
+      <p class="game-winner" hidden></p>
+      <div class="game-vote">
+        <button class="vote-btn vote-port" data-boat="port">Port</button>
+        <button class="vote-btn vote-starboard" data-boat="starboard">Starboard</button>
+      </div>
     </article>
 
   </div>
