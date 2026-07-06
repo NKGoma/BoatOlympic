@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boat Olympic — Two Boats, Five Days, One Cup</title>
+<meta name="description" content="Boat Olympic: a five-day regatta of skill, nerve and nonsense. Two boats. Thirteen events. One Cup.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="grain"></div>
+
+<nav class="nav" id="nav">
+  <a href="#top" class="nav-logo">BOAT<span>OLYMPIC</span></a>
+  <div class="nav-links">
+    <a href="#games">Games</a>
+    <a href="#schedule">Schedule</a>
+    <a href="#fleet">Fleet</a>
+    <a href="#scoring">Scoring</a>
+  </div>
+  <button class="audio-toggle" id="audioToggle" aria-label="Toggle background music">
+    <svg id="iconPlay" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    <svg id="iconPause" viewBox="0 0 24 24" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+    <span class="audio-bars" id="audioBars"><i></i><i></i><i></i></span>
+  </button>
+</nav>
+
+<audio id="bgAudio" loop preload="none">
+  <source src="assets/audio/track.mp3" type="audio/mpeg">
+</audio>
+
+<header class="hero" id="top">
+  <div class="waves">
+    <svg viewBox="0 0 1200 200" preserveAspectRatio="none" class="wave wave-1"><path d="M0,100 C300,180 900,20 1200,100 L1200,200 L0,200 Z"/></svg>
+    <svg viewBox="0 0 1200 200" preserveAspectRatio="none" class="wave wave-2"><path d="M0,120 C300,40 900,180 1200,80 L1200,200 L0,200 Z"/></svg>
+    <svg viewBox="0 0 1200 200" preserveAspectRatio="none" class="wave wave-3"><path d="M0,140 C400,60 800,160 1200,120 L1200,200 L0,200 Z"/></svg>
+  </div>
+  <div class="hero-content">
+    <p class="eyebrow">Five days at sea · Two boats · One Cup</p>
+    <h1>BOAT<br>OLYMPIC</h1>
+    <p class="hero-sub">Thirteen events. Two crews. No mercy. From duckie relays to Palomas, knots to choreography — everything you'd expect from a proper regatta, and several things you wouldn't.</p>
+    <div class="hero-cta">
+      <a href="#games" class="btn btn-primary">See the Games</a>
+      <a href="#schedule" class="btn btn-ghost">View the Schedule</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="section" id="games">
+  <div class="section-head">
+    <p class="eyebrow">The Events</p>
+    <h2>Thirteen Ways to Win</h2>
+    <p class="section-sub">Every event scores one point for the boat that wins it. Style is unscored but not unnoticed.</p>
+  </div>
+
+  <div class="games-grid">
+
+    <article class="game-card" data-tag="Water">
+      <p class="game-tag">Water</p>
+      <h3>Duckie Relay</h3>
+      <p class="game-line">Swimming relay, duckie in hand</p>
+      <p class="game-desc">A relay swim with one non-negotiable rule: the rubber duck never touches water. Drop it, redo the lap.</p>
+    </article>
+
+    <article class="game-card" data-tag="Ropes">
+      <p class="game-tag">Ropes</p>
+      <h3>Buoy Knotting Sprint</h3>
+      <p class="game-line">Fastest to knot all the buoys</p>
+      <p class="game-desc">A line of buoys, one clock. First crew to knot every single one wins — sloppy knots don't count.</p>
+    </article>
+
+    <article class="game-card" data-tag="Water">
+      <p class="game-tag">Water</p>
+      <h3>Ring Dive</h3>
+      <p class="game-line">Jump through rings</p>
+      <p class="game-desc">Timed obstacle jumps through a line of floating rings. Precision beats speed.</p>
+    </article>
+
+    <article class="game-card" data-tag="Stage">
+      <p class="game-tag">Stage</p>
+      <h3>Guess the Song</h3>
+      <p class="game-line">Noran sings</p>
+      <p class="game-desc">One microphone, one merciless judge, endless off-key nostalgia. Name the tune before the chorus.</p>
+    </article>
+
+    <article class="game-card" data-tag="Social">
+      <p class="game-tag">Social</p>
+      <h3>The Paloma Sprint</h3>
+      <p class="game-line">Drink cocktail challenge — fastest one down</p>
+      <p class="game-desc">Fastest crew member to finish a Paloma, properly. Pun fully intended, dignity optional.</p>
+    </article>
+
+    <article class="game-card" data-tag="Water">
+      <p class="game-tag">Water</p>
+      <h3>Captain Overboard</h3>
+      <p class="game-line">Drop your captains, fastest team to collect</p>
+      <p class="game-desc">Captains go in first. Crew retrieves them fastest wins. Loyalty, tested in real time.</p>
+    </article>
+
+    <article class="game-card" data-tag="Ropes">
+      <p class="game-tag">Ropes</p>
+      <h3>The Knot Challenge</h3>
+      <p class="game-line">Tie it right, tie it fast</p>
+      <p class="game-desc">Bowline, clove hitch, figure-eight — the classics, against the clock and each other.</p>
+    </article>
+
+    <article class="game-card" data-tag="Water">
+      <p class="game-tag">Water</p>
+      <h3>Water Ballet Lift</h3>
+      <p class="game-line">Lift a teammate</p>
+      <p class="game-desc">Synchronized swimming's finest move, performed by amateurs in open water. Style points included.</p>
+    </article>
+
+    <article class="game-card" data-tag="Water">
+      <p class="game-tag">Water</p>
+      <h3>SUP Circuit</h3>
+      <p class="game-line">SUP race around the boat</p>
+      <p class="game-desc">Paddle-board sprint, full loop around the mothership. Fall in, start over.</p>
+    </article>
+
+    <article class="game-card" data-tag="Water">
+      <p class="game-tag">Water</p>
+      <h3>SUP Buoy Haul</h3>
+      <p class="game-line">Full team, one board, five minutes</p>
+      <p class="game-desc">The entire crew on one SUP. Five minutes to untie and haul in as many buoys as possible — without anyone falling in.</p>
+    </article>
+
+    <article class="game-card" data-tag="Stage">
+      <p class="game-tag">Stage</p>
+      <h3>Make a Song</h3>
+      <p class="game-line">Instruments — whatever's on board</p>
+      <p class="game-desc">Whatever's on the boat is an instrument now. Compose, perform, own it.</p>
+    </article>
+
+    <article class="game-card" data-tag="Stage">
+      <p class="game-tag">Stage</p>
+      <h3>Choreography Face-off</h3>
+      <p class="game-line">Dancing competition</p>
+      <p class="game-desc">Full routine, full commitment. Judged on nerve as much as rhythm.</p>
+    </article>
+
+    <article class="game-card" data-tag="Stage">
+      <p class="game-tag">Stage</p>
+      <h3>Sailing Stories</h3>
+      <p class="game-line">Told as theatre</p>
+      <p class="game-desc">A real (or generously embellished) sailing story, staged as a five-minute performance.</p>
+    </article>
+
+  </div>
+</section>
+
+<section class="section section-alt" id="schedule">
+  <div class="section-head">
+    <p class="eyebrow">Five Days</p>
+    <h2>The Arc</h2>
+    <p class="section-sub">Skill first, then nerve, then the stage. By day five, everyone's earned their story.</p>
+  </div>
+
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-day"><span>I</span>Setting Sail</div>
+      <ul class="timeline-events">
+        <li>Opening ceremony — flags &amp; anthem</li>
+        <li>Duckie Relay</li>
+        <li>Ring Dive</li>
+        <li>SUP Circuit</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-day"><span>II</span>Ropes &amp; Precision</div>
+      <ul class="timeline-events">
+        <li>Buoy Knotting Sprint</li>
+        <li>The Knot Challenge</li>
+        <li>Water Ballet Lift</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-day"><span>III</span>Nerve &amp; Endurance</div>
+      <ul class="timeline-events">
+        <li>SUP Buoy Haul — 5' team challenge</li>
+        <li>Captain Overboard</li>
+        <li>The Paloma Sprint</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-day"><span>IV</span>Stage &amp; Sound</div>
+      <ul class="timeline-events">
+        <li>Guess the Song — Noran Sings</li>
+        <li>Make a Song</li>
+        <li>Choreography Face-off</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-day"><span>V</span>The Finale</div>
+      <ul class="timeline-events">
+        <li>Sailing Stories — theatre</li>
+        <li>Final tally</li>
+        <li>Awards &amp; closing party</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<section class="section" id="fleet">
+  <div class="section-head">
+    <p class="eyebrow">The Fleet</p>
+    <h2>Two Boats</h2>
+    <p class="section-sub">Named the old way — by the side of the ship they call home.</p>
+  </div>
+
+  <div class="fleet-grid">
+    <div class="fleet-card fleet-port">
+      <p class="fleet-light">Red light</p>
+      <h3>PORT</h3>
+      <p class="fleet-desc">Left hull, red hull tape, no mercy.</p>
+    </div>
+    <div class="fleet-vs">VS</div>
+    <div class="fleet-card fleet-starboard">
+      <p class="fleet-light">Green light</p>
+      <h3>STARBOARD</h3>
+      <p class="fleet-desc">Right hull, steady hand, quiet confidence.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="scoring">
+  <div class="section-head">
+    <p class="eyebrow">The Cup</p>
+    <h2>Scoring</h2>
+  </div>
+  <div class="scoring-box">
+    <p>Win an event, win a point. Thirteen events, thirteen points on the table.</p>
+    <p>Most points after Day V lifts the Cup.</p>
+    <p class="scoring-tiebreak">Tied? The captains settle it — over one final Paloma.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <p>BOAT OLYMPIC — five days, two boats, one Cup.</p>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
