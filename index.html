@@ -37,12 +37,20 @@
 </audio>
 
 <header class="hero" id="top">
+  <div class="spotlight"></div>
   <div class="waves">
     <svg viewBox="0 0 1200 200" preserveAspectRatio="none" class="wave wave-1"><path d="M0,100 C300,180 900,20 1200,100 L1200,200 L0,200 Z"/></svg>
     <svg viewBox="0 0 1200 200" preserveAspectRatio="none" class="wave wave-2"><path d="M0,120 C300,40 900,180 1200,80 L1200,200 L0,200 Z"/></svg>
     <svg viewBox="0 0 1200 200" preserveAspectRatio="none" class="wave wave-3"><path d="M0,140 C400,60 800,160 1200,120 L1200,200 L0,200 Z"/></svg>
   </div>
   <div class="hero-content">
+    <svg class="rings" viewBox="0 0 210 100" aria-hidden="true">
+      <circle class="r1" cx="35" cy="35" r="26"/>
+      <circle class="r2" cx="95" cy="35" r="26"/>
+      <circle class="r3" cx="155" cy="35" r="26"/>
+      <circle class="r4" cx="65" cy="65" r="26"/>
+      <circle class="r5" cx="125" cy="65" r="26"/>
+    </svg>
     <p class="eyebrow">Five days at sea · Two boats · One Cup</p>
     <h1>BOAT<br>OLYMPIC</h1>
     <p class="hero-sub">Thirteen events. Two crews. No mercy. From duckie relays to Palomas, knots to choreography — everything you'd expect from a proper regatta, and several things you wouldn't.</p>
@@ -68,17 +76,37 @@
       <div class="score-team score-team-port">
         <p class="score-team-name">Port</p>
         <p class="score-num" id="scorePort">0</p>
+        <span class="score-medal" id="medalPort"></span>
       </div>
       <div class="score-mid">
-        <div class="score-bar">
-          <div class="score-bar-fill score-bar-port" id="scoreBarPort"></div>
-          <div class="score-bar-fill score-bar-starboard" id="scoreBarStarboard"></div>
+        <svg class="laurel" viewBox="0 0 60 100" aria-hidden="true">
+          <path class="laurel-side" d="M30 8 C14 20, 8 40, 14 62 C18 78, 24 88, 30 94" />
+          <path class="laurel-leaf" d="M30 8 C18 14, 12 20, 10 26" />
+          <path class="laurel-leaf" d="M27 22 C15 26, 10 32, 8 38" />
+          <path class="laurel-leaf" d="M24 38 C12 40, 8 46, 7 52" />
+          <path class="laurel-leaf" d="M22 54 C11 55, 8 60, 8 66" />
+          <path class="laurel-leaf" d="M24 70 C14 70, 10 75, 10 80" />
+        </svg>
+        <div class="score-mid-center">
+          <div class="score-bar">
+            <div class="score-bar-fill score-bar-port" id="scoreBarPort"></div>
+            <div class="score-bar-fill score-bar-starboard" id="scoreBarStarboard"></div>
+          </div>
+          <p class="score-tally" id="scoreTally">0 of 13 events decided</p>
         </div>
-        <p class="score-tally" id="scoreTally">0 of 13 events decided</p>
+        <svg class="laurel laurel-flip" viewBox="0 0 60 100" aria-hidden="true">
+          <path class="laurel-side" d="M30 8 C14 20, 8 40, 14 62 C18 78, 24 88, 30 94" />
+          <path class="laurel-leaf" d="M30 8 C18 14, 12 20, 10 26" />
+          <path class="laurel-leaf" d="M27 22 C15 26, 10 32, 8 38" />
+          <path class="laurel-leaf" d="M24 38 C12 40, 8 46, 7 52" />
+          <path class="laurel-leaf" d="M22 54 C11 55, 8 60, 8 66" />
+          <path class="laurel-leaf" d="M24 70 C14 70, 10 75, 10 80" />
+        </svg>
       </div>
       <div class="score-team score-team-starboard">
         <p class="score-team-name">Starboard</p>
         <p class="score-num" id="scoreStarboard">0</p>
+        <span class="score-medal" id="medalStarboard"></span>
       </div>
     </div>
     <div class="confetti-field" id="confettiField"></div>

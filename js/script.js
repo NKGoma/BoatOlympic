@@ -83,6 +83,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const scoreTally = document.getElementById("scoreTally");
   const scoreBanner = document.getElementById("scoreBanner");
   const confettiField = document.getElementById("confettiField");
+  const medalPort = document.getElementById("medalPort");
+  const medalStarboard = document.getElementById("medalStarboard");
 
   const BANNERS = {
     tiePlaying: "All square. Let's sail.",
@@ -138,6 +140,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const starboardPct = decided ? (starboard / totalEvents) * 100 : 0;
     scoreBarPort.style.width = `${portPct}%`;
     scoreBarStarboard.style.width = `${starboardPct}%`;
+
+    medalPort.textContent = "";
+    medalStarboard.textContent = "";
+    if (decided > 0 && port !== starboard) {
+      (port > starboard ? medalPort : medalStarboard).textContent = "🥇";
+      (port > starboard ? medalStarboard : medalPort).textContent = "🥈";
+    }
 
     if (decided === 0) {
       scoreBanner.textContent = BANNERS.tiePlaying;

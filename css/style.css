@@ -8,9 +8,12 @@
   --muted: #93a6bd;
   --port: #c1443c;
   --starboard: #2f8f5b;
+  --ring-blue: #3d7dd6;
+  --ring-white: #eef2f6;
   --border: rgba(201, 162, 75, 0.18);
   --font-display: Georgia, "Times New Roman", Times, serif;
   --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-champion: "Arial Black", "Arial Bold", Arial, var(--font-body);
 }
 
 * { box-sizing: border-box; }
@@ -52,10 +55,10 @@ a { color: inherit; text-decoration: none; }
 }
 
 .nav-logo {
-  font-family: var(--font-display);
+  font-family: var(--font-champion);
   font-size: 1.15rem;
-  letter-spacing: 0.12em;
-  font-weight: 700;
+  letter-spacing: 0.06em;
+  font-weight: 900;
   color: var(--ink);
 }
 .nav-logo span { color: var(--gold); font-weight: 400; }
@@ -155,12 +158,58 @@ a { color: inherit; text-decoration: none; }
     linear-gradient(180deg, var(--navy-deep) 0%, var(--navy) 55%, var(--navy-light) 100%);
 }
 
+.spotlight {
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  width: 140vw;
+  height: 140vw;
+  transform: translateX(-50%);
+  z-index: 0;
+  background: repeating-conic-gradient(
+    from 0deg,
+    rgba(230,207,154,0.05) 0deg 4deg,
+    transparent 4deg 12deg
+  );
+  mask-image: radial-gradient(circle at 50% 30%, #000 0%, transparent 55%);
+  -webkit-mask-image: radial-gradient(circle at 50% 30%, #000 0%, transparent 55%);
+  animation: spin 90s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: translateX(-50%) rotate(360deg); }
+}
+
 .hero-content {
   position: relative;
   z-index: 3;
   text-align: center;
   max-width: 780px;
   padding: 0 6vw;
+}
+
+.rings {
+  width: clamp(150px, 24vw, 220px);
+  height: auto;
+  margin: 0 auto 1.6rem;
+  overflow: visible;
+}
+.rings circle {
+  fill: none;
+  stroke-width: 9;
+  stroke-linecap: round;
+  stroke-dasharray: 164;
+  stroke-dashoffset: 164;
+  animation: ring-draw 1.1s ease forwards;
+}
+.rings .r1 { stroke: var(--ring-blue); animation-delay: 0s; }
+.rings .r2 { stroke: var(--ring-white); animation-delay: 0.15s; }
+.rings .r3 { stroke: var(--port); animation-delay: 0.3s; }
+.rings .r4 { stroke: var(--gold); animation-delay: 0.45s; }
+.rings .r5 { stroke: var(--starboard); animation-delay: 0.6s; }
+
+@keyframes ring-draw {
+  to { stroke-dashoffset: 0; }
 }
 
 .eyebrow {
@@ -172,13 +221,14 @@ a { color: inherit; text-decoration: none; }
 }
 
 .hero h1 {
-  font-family: var(--font-display);
+  font-family: var(--font-champion);
+  font-weight: 900;
   font-size: clamp(3.2rem, 10vw, 6.5rem);
-  line-height: 0.98;
-  letter-spacing: 0.04em;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
   margin: 0 0 1.4rem;
   color: var(--ink);
-  text-shadow: 0 0 60px rgba(201,162,75,0.15);
+  text-shadow: 0 0 70px rgba(201,162,75,0.25);
 }
 
 .hero-sub {
@@ -240,7 +290,9 @@ a { color: inherit; text-decoration: none; }
 .section-head { max-width: 700px; margin: 0 auto 3.5rem; text-align: center; }
 .section-head .eyebrow { text-align: center; }
 .section-head h2 {
-  font-family: var(--font-display);
+  font-family: var(--font-champion);
+  font-weight: 900;
+  letter-spacing: -0.01em;
   font-size: clamp(2rem, 4vw, 2.8rem);
   margin: 0 0 1rem;
 }
@@ -268,12 +320,26 @@ a { color: inherit; text-decoration: none; }
 }
 
 .game-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 0.7rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--gold-soft);
   margin: 0 0 0.9rem;
 }
+.game-tag::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+.game-card[data-tag="Water"] .game-tag::before { background: var(--ring-blue); }
+.game-card[data-tag="Ropes"] .game-tag::before { background: var(--ring-white); }
+.game-card[data-tag="Stage"] .game-tag::before { background: var(--port); }
+.game-card[data-tag="Social"] .game-tag::before { background: var(--starboard); }
 
 .game-card h3 {
   font-family: var(--font-display);
@@ -396,7 +462,8 @@ a { color: inherit; text-decoration: none; }
 .score-team-starboard .score-team-name { color: var(--starboard); }
 
 .score-num {
-  font-family: var(--font-display);
+  font-family: var(--font-champion);
+  font-weight: 900;
   font-size: clamp(2.6rem, 8vw, 4rem);
   line-height: 1;
   margin: 0;
@@ -412,7 +479,34 @@ a { color: inherit; text-decoration: none; }
   100% { transform: scale(1); }
 }
 
-.score-mid { flex: 1 1 auto; }
+.score-medal {
+  display: block;
+  min-height: 1.4rem;
+  font-size: 1.2rem;
+  margin-top: 0.3rem;
+}
+
+.score-mid {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.score-mid-center { flex: 1 1 auto; }
+
+.laurel {
+  flex: 0 0 auto;
+  width: 26px;
+  height: auto;
+  opacity: 0.6;
+  display: none;
+}
+.laurel-side, .laurel-leaf { fill: none; stroke: var(--gold-soft); stroke-width: 2.2; stroke-linecap: round; }
+.laurel-flip { transform: scaleX(-1); }
+
+@media (min-width: 560px) {
+  .laurel { display: block; }
+}
 
 .score-bar {
   display: flex;
@@ -496,8 +590,9 @@ a { color: inherit; text-decoration: none; }
 }
 
 .timeline-day {
-  font-family: var(--font-display);
-  font-size: 1.3rem;
+  font-family: var(--font-champion);
+  font-weight: 900;
+  font-size: 1.2rem;
   margin-bottom: 0.9rem;
   display: flex;
   align-items: baseline;
@@ -550,9 +645,10 @@ a { color: inherit; text-decoration: none; }
 .fleet-starboard .fleet-light { color: var(--starboard); }
 
 .fleet-card h3 {
-  font-family: var(--font-display);
+  font-family: var(--font-champion);
+  font-weight: 900;
   font-size: 2.2rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
   margin: 0 0 0.6rem;
 }
 .fleet-port h3 { color: var(--port); }
