@@ -15,11 +15,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const iconPlay = document.getElementById("iconPlay");
   const iconPause = document.getElementById("iconPause");
 
+  const tryPlay = () => audio.play().catch(() => {});
+
+  tryPlay();
+
+  const resumeOnInteraction = () => {
+    if (audio.paused) tryPlay();
+    document.removeEventListener("pointerdown", resumeOnInteraction);
+    document.removeEventListener("keydown", resumeOnInteraction);
+  };
+  document.addEventListener("pointerdown", resumeOnInteraction, { once: true });
+  document.addEventListener("keydown", resumeOnInteraction, { once: true });
+
   toggle.addEventListener("click", () => {
     if (audio.paused) {
-      audio.play().catch(() => {
-        console.warn("Add your track at assets/audio/track.mp3 to enable background music.");
-      });
+      tryPlay();
     } else {
       audio.pause();
     }
@@ -35,5 +45,20 @@ document.addEventListener("DOMContentLoaded", () => {
     toggle.classList.remove("playing");
     iconPlay.hidden = false;
     iconPause.hidden = true;
+  });
+
+  const navBurger = document.getElementById("navBurger");
+  const navLinks = document.getElementById("navLinks");
+
+  navBurger.addEventListener("click", () => {
+    const isOpen = navLinks.classList.toggle("open");
+    navBurger.setAttribute("aria-expanded", String(isOpen));
+  });
+
+  navLinks.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      navLinks.classList.remove("open");
+      navBurger.setAttribute("aria-expanded", "false");
+    });
   });
 });

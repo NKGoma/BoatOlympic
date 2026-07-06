@@ -67,8 +67,44 @@ a { color: inherit; text-decoration: none; }
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
-.nav-links a { color: var(--muted); transition: color 0.2s; }
+.nav-links a {
+  color: var(--muted);
+  transition: color 0.2s;
+  display: inline-block;
+  padding: 0.4rem 0;
+}
 .nav-links a:hover { color: var(--gold-soft); }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.nav-burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: rgba(201,162,75,0.1);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 0;
+}
+.nav-burger span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  margin: 0 auto;
+  background: var(--gold-soft);
+  transition: transform 0.25s, opacity 0.25s;
+}
+.nav-burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav-burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 .audio-toggle {
   display: flex;
@@ -394,8 +430,46 @@ a { color: inherit; text-decoration: none; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 720px) {
-  .nav-links { display: none; }
+  .nav { padding: 16px 5vw; }
+  .nav-burger { display: flex; }
+
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: var(--navy-deep);
+    border-bottom: 1px solid var(--border);
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 5vw;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+  }
+  .nav-links.open {
+    max-height: 320px;
+    padding: 0.5rem 5vw 1.2rem;
+  }
+  .nav-links a {
+    padding: 0.8rem 0;
+    font-size: 0.95rem;
+    border-bottom: 1px dashed rgba(255,255,255,0.08);
+  }
+  .nav-links a:last-child { border-bottom: none; }
+
+  .audio-toggle { padding: 8px 12px; }
+
   .fleet-grid { grid-template-columns: 1fr; }
   .fleet-vs { padding: 0.2rem 0; }
-  .section { padding: 5rem 6vw; }
+  .section { padding: 4.5rem 6vw; }
+  .games-grid { gap: 1rem; }
+  .timeline { padding-left: 1.6rem; }
+  .timeline-item::before { left: -2.05rem; }
+  .hero-cta { flex-direction: column; align-items: stretch; }
+  .btn { text-align: center; }
+}
+
+@media (max-width: 380px) {
+  .hero h1 { font-size: 2.6rem; }
 }

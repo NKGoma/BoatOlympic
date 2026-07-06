@@ -13,20 +13,25 @@
 
 <nav class="nav" id="nav">
   <a href="#top" class="nav-logo">BOAT<span>OLYMPIC</span></a>
-  <div class="nav-links">
+  <div class="nav-links" id="navLinks">
     <a href="#games">Games</a>
     <a href="#schedule">Schedule</a>
     <a href="#fleet">Fleet</a>
     <a href="#scoring">Scoring</a>
   </div>
-  <button class="audio-toggle" id="audioToggle" aria-label="Toggle background music">
-    <svg id="iconPlay" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-    <svg id="iconPause" viewBox="0 0 24 24" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-    <span class="audio-bars" id="audioBars"><i></i><i></i><i></i></span>
-  </button>
+  <div class="nav-right">
+    <button class="audio-toggle" id="audioToggle" aria-label="Toggle background music">
+      <svg id="iconPlay" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      <svg id="iconPause" viewBox="0 0 24 24" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      <span class="audio-bars" id="audioBars"><i></i><i></i><i></i></span>
+    </button>
+    <button class="nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
 
-<audio id="bgAudio" loop preload="none">
+<audio id="bgAudio" loop preload="auto" autoplay playsinline>
   <source src="assets/audio/track.mp3" type="audio/mpeg">
 </audio>
 
