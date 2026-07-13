@@ -213,6 +213,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const medalPort = document.getElementById("medalPort");
   const medalStarboard = document.getElementById("medalStarboard");
 
+  const TEAM_NAME = { port: "Juju's", starboard: "Nori's" };
+
   const BANNERS = {
     tiePlaying: "All square. Let's sail.",
     tieDecided: (n) => `Dead heat — ${n} down, tied on points.`,
@@ -253,7 +255,7 @@ document.addEventListener("DOMContentLoaded", () => {
         card.classList.add("is-won", `won-${winner}`);
         card.querySelector(`.vote-btn[data-boat="${winner}"]`).classList.add("active");
         ribbon.hidden = false;
-        ribbon.textContent = `Won by ${winner === "port" ? "Port" : "Starboard"}`;
+        ribbon.textContent = `Won by ${TEAM_NAME[winner]}`;
         ribbon.className = `game-winner winner-${winner}`;
       } else {
         ribbon.hidden = true;
@@ -282,17 +284,17 @@ document.addEventListener("DOMContentLoaded", () => {
     if (decided === 0) {
       scoreBanner.textContent = BANNERS.tiePlaying;
     } else if (cupDone) {
-      scoreBanner.textContent = BANNERS.done(port > starboard ? "Port" : "Starboard");
+      scoreBanner.textContent = BANNERS.done(port > starboard ? TEAM_NAME.port : TEAM_NAME.starboard);
     } else if (port === starboard) {
       scoreBanner.textContent = BANNERS.tieDecided(decided);
     } else {
-      scoreBanner.textContent = BANNERS.lead(port > starboard ? "Port" : "Starboard", Math.abs(port - starboard));
+      scoreBanner.textContent = BANNERS.lead(port > starboard ? TEAM_NAME.port : TEAM_NAME.starboard, Math.abs(port - starboard));
     }
 
     if (cupDone && justChanged && !cupCelebrated) {
       cupCelebrated = true;
       playFanfare();
-      announceNow(`${port > starboard ? "Port" : "Starboard"}... wiiiins, the Boat Olympics!`, { pitch: 1.3, rate: 1.12 });
+      announceNow(`${port > starboard ? TEAM_NAME.port : TEAM_NAME.starboard}... wiiiins, the Boat Olympics!`, { pitch: 1.3, rate: 1.12 });
     } else if (!cupDone) {
       cupCelebrated = false;
     }
@@ -322,7 +324,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
           scores[event] = boat;
           playPointSound(boat);
-          announceNow(`Poooooint, ${boat === "port" ? "Port" : "Starboard"}!`, { pitch: 1.28, rate: 1.15 });
+          announceNow(`Poooooint, ${TEAM_NAME[boat]}!`, { pitch: 1.28, rate: 1.15 });
         }
         saveScores();
         render(true);
